@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ប្រព័ន្ធគ្រប់គ្រងបុគ្គលិក - កត់វត្តមានតាម QR Code</title>
+    
+    <!-- PWA Configuration -->
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-users-cog me-2"></i>ប្រព័ន្ធគ្រប់គ្រងបុគ្គលិក
+            </a>
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item">
+                    <button class="btn btn-sm btn-outline-light me-2" onclick="showCompanySetup()">
+                        <i class="fas fa-building me-1"></i>ក្រុមហ៊ុន
+                    </button>
+                    <button class="btn btn-sm btn-outline-light" onclick="window.open('https://t.me/komsan441', '_blank')">
+                        <i class="fab fa-telegram me-1"></i>ទាក់ទង
+                    </button>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-link" id="currentDateTime"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="d-block d-lg-none">
+        <div class="bottom-nav fixed-bottom bg-white shadow-lg">
+            <div class="row text-center py-2">
+                <div class="col-3">
+                    <button class="btn btn-link text-primary" onclick="switchTab('employee')">
+                        <i class="fas fa-user fa-lg"></i><br>
+                        <small>បុគ្គលិក</small>
+                    </button>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-link text-primary" onclick="switchTab('admin')">
+                        <i class="fas fa-cog fa-lg"></i><br>
+                        <small>គ្រប់គ្រង</small>
+                    </button>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-link text-primary" onclick="showQRScanner()">
+                        <i class="fas fa-qrcode fa-lg"></i><br>
+                        <small>ស្កេន</small>
+                    </button>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-link text-primary" onclick="window.open('https://t.me/komsan441', '_blank')">
+                        <i class="fab fa-telegram fa-lg"></i><br>
+                        <small>ទិញកម្មវិធី</small>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Install Button -->
+    <button id="installButton" class="btn btn-success install-btn d-none">
+        <i class="fas fa-download me-2"></i>ដំឡើង App
+    </button>
+
+    <!-- Main Container -->
+    <div class="container mt-4 mb-5">
+        <!-- Tab Navigation -->
+        <ul class="nav nav-tabs" id="mainTab">
+            <li class="nav-item">
+                <button class="nav-link active" onclick="switchTab('employee')">
+                    <i class="fas fa-user me-1"></i> ផ្នែកបុគ្គលិក
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" onclick="switchTab('admin')">
+                    <i class="fas fa-user-shield me-1"></i> ផ្នែកអ្នកគ្រប់គ្រង
+                </button>
+            </li>
+        </ul>
+
+        <!-- Employee Section -->
+        <div id="employeeSection" class="tab-pane active mt-3">
+            <!-- QR Scanner Section -->
+            <div class="card card-mobile">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-qrcode me-2"></i>កត់វត្តមានតាម QR Code
+                </div>
+                <div class="card-body text-center">
+                    <div id="qr-reader" class="qr-scan-animation" style="width: 100%; max-width: 500px; margin: 0 auto;"></div>
+                    <div id="scanResult" class="mt-3"></div>
+                    
+                    <div class="mt-4">
+                        <button class="btn btn-warning btn-mobile" onclick="manualCheckIn()">
+                            <i class="fas fa-hand-point-up me-2"></i>កត់វត្តមានដោយដៃ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Actions -->
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="card h-100 card-mobile">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-money-bill-wave me-2"></i>សំណើរសេវាកម្ម
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-primary w-100 mb-2 btn-mobile" onclick="requestLoan()">
+                                <i class="fas fa-hand-holding-usd me-2"></i>ស្នើលុយខ្ចី
+                            </button>
+                            <button class="btn btn-success w-100 mb-2 btn-mobile" onclick="requestPurchase()">
+                                <i class="fas fa-shopping-cart me-2"></i>ស្នើទិញអីវ៉ាន់ការងារ
+                            </button>
+                            <button class="btn btn-info w-100 mb-2 btn-mobile" onclick="checkDailyTasks()">
+                                <i class="fas fa-tasks me-2"></i>ពិនិត្យភារៈកិច្ច
+                            </button>
+                            <button class="btn btn-warning w-100 btn-mobile" onclick="requestLeave()">
+                                <i class="fas fa-calendar-minus me-2"></i>សុំច្បាប់ការងារ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100 card-mobile">
+                        <div class="card-header bg-info text-white">
+                            <i class="fas fa-user-circle me-2"></i>ព័ត៌មានផ្ទាល់ខ្លួន
+                        </div>
+                        <div class="card-body">
+                            <div id="employeeInfo">
+                                <p class="text-center text-muted">សូមកត់វត្តមានដើម្បីមើលព័ត៌មាន</p>
+                            </div>
+                            <div class="mt-3" id="employeeStats"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="adminSection" class="tab-pane mt-3">
+            <!-- Admin Login -->
+            <div id="loginSection">
+                <div class="card card-mobile">
+                    <div class="card-header bg-dark text-white">
+                        <i class="fas fa-lock me-2"></i>ការចូលប្រព័ន្ធអ្នកគ្រប់គ្រង
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-6 mx-auto">
+                            <div class="mb-3">
+                                <label class="form-label">ពាក្យសម្ងាត់អ្នកគ្រប់គ្រង</label>
+                                <input type="password" id="adminPassword" class="form-control" placeholder="បញ្ចូលពាក្យសម្ងាត់">
+                            </div>
+                            <button onclick="loginAdmin()" class="btn btn-primary w-100 btn-mobile">
+                                <i class="fas fa-sign-in-alt me-2"></i>ចូលប្រព័ន្ធ
+                            </button>
+                            
+                            <div class="mt-3 text-center">
+                                <button class="btn btn-link" onclick="showCompanySetup()">
+                                    <i class="fas fa-cog me-1"></i>កំណត់ក្រុមហ៊ុនថ្មី
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Panel -->
+            <div id="adminPanel" class="d-none">
+                <!-- Quick Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body text-center">
+                                <h5><i class="fas fa-users me-2"></i>បុគ្គលិក</h5>
+                                <h3 id="totalEmployees">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="card text-white bg-success">
+                            <div class="card-body text-center">
+                                <h5><i class="fas fa-user-check me-2"></i>វត្តមាន</h5>
+                                <h3 id="todayAttendance">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="card text-white bg-warning">
+                            <div class="card-body text-center">
+                                <h5><i class="fas fa-clock me-2"></i>ការខ្ចី</h5>
+                                <h3 id="totalLoans">$0</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="card text-white bg-danger">
+                            <div class="card-body text-center">
+                                <h5><i class="fas fa-file-invoice-dollar me-2"></i>ប្រាក់ខែ</h5>
+                                <h3 id="totalSalary">$0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Tabs -->
+                <ul class="nav nav-tabs" id="adminTabs">
+                    <li class="nav-item">
+                        <button class="nav-link active" onclick="showAdminTab('manageEmployees')">
+                            <i class="fas fa-user-plus me-1"></i>គ្រប់គ្រងបុគ្គលិក
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" onclick="showAdminTab('attendance')">
+                            <i class="fas fa-calendar-check me-1"></i>វត្តមាន
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" onclick="showAdminTab('salary')">
+                            <i class="fas fa-money-check-alt me-1"></i>ប្រាក់ខែ
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" onclick="showAdminTab('requests')">
+                            <i class="fas fa-clipboard-list me-1"></i>សំណើរ
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Manage Employees Tab -->
+                <div id="manageEmployeesTab" class="admin-tab active mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card card-mobile">
+                                <div class="card-header">
+                                    <i class="fas fa-user-plus me-2"></i>បន្ថែមបុគ្គលិកថ្មី
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">ឈ្មោះបុគ្គលិក</label>
+                                        <input type="text" id="newEmployeeName" class="form-control" placeholder="បញ្ចូលឈ្មោះ">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">លេខសម្គាល់</label>
+                                        <input type="text" id="newEmployeeId" class="form-control" placeholder="EMP001">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">តួនាទី</label>
+                                        <select id="newEmployeeRole" class="form-control">
+                                            <option value="បុគ្គលិក">បុគ្គលិក</option>
+                                            <option value="អ្នកគ្រប់គ្រង">អ្នកគ្រប់គ្រង</option>
+                                            <option value="ជំនួយការ">ជំនួយការ</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">ប្រាក់ខែគោល ($)</label>
+                                        <input type="number" id="newEmployeeSalary" class="form-control" value="300">
+                                    </div>
+                                    <button onclick="addNewEmployee()" class="btn btn-success w-100 btn-mobile">
+                                        <i class="fas fa-plus-circle me-2"></i>បន្ថែមបុគ្គលិក
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="card mt-3 card-mobile">
+                                <div class="card-header">
+                                    <i class="fas fa-qrcode me-2"></i>បង្កើត QR Code
+                                </div>
+                                <div class="card-body text-center">
+                                    <button onclick="generateAllQRCodes()" class="btn btn-primary w-100 btn-mobile">
+                                        <i class="fas fa-qrcode me-2"></i>បង្កើត QR Code ទាំងអស់
+                                    </button>
+                                    <div id="allQRCodes" class="mt-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card card-mobile">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-users me-2"></i>បញ្ជីបុគ្គលិក</span>
+                                    <button onclick="refreshEmployeeList()" class="btn btn-sm btn-light">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="employeeList" style="max-height: 500px; overflow-y: auto;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- License Info Footer -->
+    <div class="container mt-4 mb-5">
+        <div class="card card-mobile">
+            <div class="card-body text-center">
+                <h6>ប្រព័ន្ធគ្រប់គ្រងបុគ្គលិក v1.2</h6>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <p class="mb-1"><small>អាជ្ញាប័ណ្ណ: <span id="licenseType">សាកល្បង</span></small></p>
+                        <p class="mb-1"><small>ផុតកំណត់: <span id="licenseExpiry">2024-12-31</span></small></p>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-1"><small>បុគ្គលិក: <span id="employeeCount">0</span>/<span id="maxEmployees">10</span></small></p>
+                        <p class="mb-1"><small>ក្រុមហ៊ុន: <span id="companyName">សាកល្បង</span></small></p>
+                    </div>
+                </div>
+                <button onclick="window.open('https://t.me/komsan441', '_blank')" class="btn btn-sm btn-outline-primary mt-2">
+                    <i class="fab fa-telegram me-1"></i>ទិញកញ្ចប់សេវាកម្ម
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Company Setup Modal -->
+    <div class="modal fade" id="companySetupModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">កំណត់ក្រុមហ៊ុនថ្មី</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">ឈ្មោះក្រុមហ៊ុន</label>
+                        <input type="text" id="setupCompanyName" class="form-control" placeholder="ឈ្មោះក្រុមហ៊ុនរបស់អ្នក">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">លេខសំងាត់អ្នកគ្រប់គ្រង</label>
+                        <input type="password" id="setupAdminPassword" class="form-control" placeholder="លេខសំងាត់ថ្មី">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">លេខអាជ្ញាប័ណ្ណ (បើមាន)</label>
+                        <input type="text" id="setupLicenseKey" class="form-control" placeholder="ទុកជាទំនេរបើសាកល្បង">
+                    </div>
+                    <button onclick="saveCompanySetup()" class="btn btn-primary w-100">
+                        <i class="fas fa-save me-2"></i>រក្សាទុក
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Modal -->
+    <div class="modal fade" id="requestModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="requestModalTitle">សំណើរ</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="requestModalBody">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <!-- JavaScript Files -->
+    <script src="js/license.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/install.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

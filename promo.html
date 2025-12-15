@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>កម្មវិធីគ្រប់គ្រងបុគ្គលិក - ទីផ្សារ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+        }
+        
+        body {
+            font-family: 'Battambang', sans-serif;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+        }
+        
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-users-cog me-2"></i>ប្រព័ន្ធគ្រប់គ្រងបុគ្គលិក
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html">សាកល្បង</a>
+                <a class="nav-link" href="#features">លក្ខណៈពិសេស</a>
+                <a class="nav-link" href="#pricing">តម្លៃ</a>
+                <a class="nav-link" href="#contact">ទាក់ទង</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">កម្មវិធីគ្រប់គ្រងបុគ្គលិក</h1>
+            <p class="lead mb-4">កត់វត្តមានតាម QR Code • គ្រប់គ្រងប្រាក់ខែ • របាយការណ៍ស្វ័យប្រវត្តិ</p>
+            <div class="mt-5">
+                <a href="index.html" class="btn btn-light btn-lg px-5 py-3 me-3">
+                    <i class="fas fa-play-circle me-2"></i>សាកល្បងឥឡូវនេះ
+                </a>
+                <a href="#pricing" class="btn btn-outline-light btn-lg px-5 py-3">
+                    <i class="fas fa-tags me-2"></i>មើលតម្លៃ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">លក្ខណៈពិសេស</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-primary text-white">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                            <h4 class="card-title">កត់វត្តមានដោយស្វ័យប្រវត្តិ</h4>
+                            <p class="card-text">បុគ្គលិកស្កេន QR Code ដើម្បីកត់ចូល/ចេញ</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-success text-white">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h4 class="card-title">គ្រប់គ្រងប្រាក់ខែ</h4>
+                            <p class="card-text">គណនាប្រាក់ខែស្វ័យប្រវត្តិ គ្រប់គ្រងការខ្ចីលុយ</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-warning text-white">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h4 class="card-title">គ្រប់គ្រងភារៈកិច្ច</h4>
+                            <p class="card-text">ចែកភារៈកិច្ចប្រចាំថ្ងៃ តាមដានដំណើរការ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">កញ្ចប់តម្លៃ</h2>
+            
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="card-title">កញ្ចប់សាកល្បង</h4>
+                            <div class="price display-4 fw-bold text-primary my-4">ឥតគិតថ្លៃ</div>
+                            <p class="text-muted">១៥ថ្ងៃ</p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>បុគ្គលិក ១០នាក់</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>កត់វត្តមាន QR Code</li>
+                                <li class="mb-2"><i class="fas fa-times text-danger me-2"></i>គ្រប់គ្រងប្រាក់ខែ</li>
+                            </ul>
+                            <a href="index.html" class="btn btn-outline-primary w-100">សាកល្បងឥឡូវ</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="card-title">កញ្ចប់ប្រចាំខែ</h4>
+                            <div class="price display-4 fw-bold text-primary my-4">$10</div>
+                            <p class="text-muted">ក្នុងមួយខែ</p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>បុគ្គលិក ៥០នាក់</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>គ្រប់គ្រងប្រាក់ខែ</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>ការគាំទ្រតេលេក្រាម</li>
+                            </ul>
+                            <a href="https://t.me/komsan441" target="_blank" class="btn btn-primary w-100">
+                                <i class="fab fa-telegram me-2"></i>ទិញឥឡូវ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="card-title">កញ្ចប់ប្រចាំឆ្នាំ</h4>
+                            <div class="price display-4 fw-bold text-primary my-4">$100</div>
+                            <p class="text-muted">ក្នុងមួយឆ្នាំ</p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>បុគ្គលិក ២០០នាក់</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>គ្រប់លក្ខណៈពិសេស</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>ការអភិវឌ្ឍន៍តាមតម្រូវការ</li>
+                            </ul>
+                            <a href="https://t.me/komsan441" target="_blank" class="btn btn-outline-primary w-100">
+                                <i class="fab fa-telegram me-2"></i>ទាក់ទង
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">ទាក់ទងទិញកម្មវិធី</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-5">
+                                <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                                <h3>ត្រូវការជំនួយ?</h3>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100 text-center">
+                                        <div class="card-body">
+                                            <i class="fab fa-telegram fa-3x text-primary mb-3"></i>
+                                            <h5>តេលេក្រាម</h5>
+                                            <p class="mb-2">@komsan441</p>
+                                            <a href="https://t.me/komsan441" target="_blank" class="btn btn-telegram mt-2">
+                                                <i class="fab fa-telegram me-2"></i>ទាក់ទងឥឡូវ
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100 text-center">
+                                        <div class="card-body">
+                                            <i class="fas fa-phone fa-3x text-success mb-3"></i>
+                                            <h5>ទូរស័ព្ទ</h5>
+                                            <p class="mb-2">+855 12 345 678</p>
+                                            <a href="tel:+85512345678" class="btn btn-success mt-2">
+                                                <i class="fas fa-phone me-2"></i>ហៅទូរស័ព្ទ
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-users-cog me-2"></i>ប្រព័ន្ធគ្រប់គ្រងបុគ្គលិក</h5>
+                    <p class="mb-0">កម្មវិធីគ្រប់គ្រងបុគ្គលិកតាម QR Code</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-2">ទាក់ទងយើងខ្ញុំ៖</p>
+                    <a href="https://t.me/komsan441" target="_blank" class="text-white me-3">
+                        <i class="fab fa-telegram fa-lg"></i> @komsan441
+                    </a>
+                </div>
+            </div>
+            <hr class="bg-white my-3">
+            <div class="text-center">
+                <p class="mb-0">© 2024 កម្មវិធីគ្រប់គ្រងបុគ្គលិក</p>
+                <p class="small mb-0">អភិវឌ្ឍន៍ដោយ: កុម្សាន់ | Telegram: @komsan441</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
