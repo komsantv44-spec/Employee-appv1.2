@@ -1,0 +1,26 @@
+# netlify.toml - Netlify configuration file
+
+[build]
+# កម្មវិធីរបស់អ្នកជា Static HTML/CSS/JS ដូច្នេះមិនត្រូវការ Build Command ទេ
+# ដាក់ "" ឬលុបបន្ទាត់នេះក៏បាន
+command = "" 
+
+# ឯកសារទាំងអស់ (index.html, css/, js/) របស់អ្នកស្ថិតនៅក្នុង root folder
+# ដូច្នេះ publish directory ត្រូវកំណត់ជា "." (ចំណុច)
+publish = "." 
+
+# ការកំណត់រចនាសម្ព័ន្ធសម្រាប់ការប្រើប្រាស់ PWA (ស្រេចចិត្ត តែល្អ)
+
+# 1. រៀបចំ Service Worker ឱ្យដំណើរការបានត្រឹមត្រូវនៅគ្រប់ទីតាំង (Scope)
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Service-Worker-Allowed = "/"
+    Cache-Control = "no-cache" # ធានាថា Service Worker ត្រូវបាន Update ត្រឹមត្រូវ
+
+# 2. ការកំណត់រចនាសម្ព័ន្ធសម្រាប់ Single Page Application (SPA)
+# នេះធានាថា URL ណាមួយដែលមិនស្គាល់នឹង Load ទៅ index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
